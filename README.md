@@ -30,5 +30,5 @@ is equivalent to the following [`decide()`](https://docs.developers.optimizely.c
 
 with one key difference: `decideWithDependencies(user, flagKey, options)` will check to see if `flagKey` has any dependencies specified via a comma-separated list in the default value of a special `_depends` [flag variable](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/create-flag-variations), like this:
 
-![Specifying flag dependencies])(./img/dependencies.png)
+![Specifying flag dependencies](./img/dependencies.png)
 
