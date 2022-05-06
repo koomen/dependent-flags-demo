@@ -10,7 +10,8 @@ The source code is in the [docs](/docs) directory in this repository.
 
 ## What are stateless flag dependencies?
 
-Imagine you're working with three Optimizely Full Stack [Feature Flags](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/create-feature-flags):,`flag_1`, `flag_2`, and `flag_3`. 
+Imagine you're working with three Optimizely Full Stack [Feature Flags](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/create-feature-flags):,`flag_1`, `flag_2`, and `flag_3`:
+
 - `flag_1` and `flag_2` each have their own [flag rules](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/interactions-between-flag-rules). 
 - `flag_3` should be `on` for everyone for whom `flag_1` and `flag_2` are also on. 
 
