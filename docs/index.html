@@ -1,13 +1,60 @@
 <html>
 	<head>
 		<script src="https://unpkg.com/@optimizely/optimizely-sdk/dist/optimizely.browser.umd.min.js"></script>
+		<script src="optimizely_flag_dependencies.js"></script>
 		<script>
-			window.onload = () => {
-				document.getElementById("hello").innerHTML = "Loaded!";
+
+			const optimizelyClient = getOptimizelyClient();
+
+			function decideButtonClick() {
+				console.log("Decide button clicked");
+				optimizelyClient.onReady().then(async () => {
+					
+					// Create user context
+
+					var userId = "user123";
+					var attrs = {
+						in_audience_1: document.getElementById("in_audience_1").checked,
+						in_audience_2: document.getElementById("in_audience_2").checked
+					}
+					var user = optimizelyClient.createUserContext(userId, attrs);
+					console.log(`Created user context with userId=${userId} and attrs=${JSON.stringify(attrs)}`);
+
+
+					// Decide flags
+
+					["flag_1", "flag_2", "flag_3"].forEach(flag => {
+						let stateStr = optimizelyClient.decideWithDependencies(user, flag).enabled ? "ON" : "OFF";
+						document.getElementById(flag).innerHTML = stateStr;
+					})
+
+					console.log("Decisions made");
+				})
 			}
+
+			decideButtonClick();
+
 		</script>
+		<style>
+			div {
+				padding: 10px;
+			}
+		</style>
 	</head>
 	<body>
-		<div id="hello"></div>
+		<div>
+			<input type="checkbox" id="in_audience_1" name="in_audience_1" />
+			<label for="in_audience_1"> In Audience 1</label><br/>
+			<input type="checkbox" id="in_audience_2" name="in_audience_2" />
+			<label for="in_audience_2"> In Audience 2</label>
+		</div>
+		<div>
+			<button onclick="decideButtonClick()">Decide</button>
+		</div>
+		<div>
+			<code>flag_1</code> (targeted at Audience 1): <code><span id="flag_1"></span></code><br/>
+			<code>flag_2</code> (targeted at Audience 2): <code><span id="flag_2"></span></code><br/>
+			<code>flag_3</code> (depends on flags 1 and 2): <code><span id="flag_3"></span></code><br/>
+		<div>
 	</body>
 </html>
