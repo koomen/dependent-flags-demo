@@ -2,7 +2,9 @@
 	<head>
 		<script src="https://unpkg.com/@optimizely/optimizely-sdk/dist/optimizely.browser.umd.min.js"></script>
 		<script>
-			document.getElementById("hello").innerHTML = "Loaded!";
+			window.onload = () => {
+				document.getElementById("hello").innerHTML = "Loaded!";
+			}
 		</script>
 	</head>
 	<body>
