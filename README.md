@@ -10,13 +10,16 @@ The source code is in the [docs](/docs) directory in this repository.
 
 ## What are stateless flag dependencies?
 
-Imagine you're working with three Optimizely Full Stack [Feature Flags](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/create-feature-flags), `flag_1`, `flag_2`, and `flag_3`. `flag_1` and `flag_2` each have their own [flag rules](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/interactions-between-flag-rules). `flag_3` should be `on` for everyone for whom `flag_1` and `flag_2` are also on. In this scenario, `flag_3` _depends on_ `flag_1` and `flag_2`.
+Imagine you're working with three Optimizely Full Stack [Feature Flags](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/create-feature-flags):,`flag_1`, `flag_2`, and `flag_3`. 
+- `flag_1` and `flag_2` each have their own [flag rules](https://docs.developers.optimizely.com/experimentation/v4.0.0-full-stack/docs/interactions-between-flag-rules). 
+- `flag_3` should be `on` for everyone for whom `flag_1` and `flag_2` are also on. 
 
-_Stateless_ dependency evaluation works by checking whether `flag_1` and `flag_2` are `on` for a given user at the moment that a decision for `flag_3` is required. 
+In this scenario, `flag_3` _depends on_ `flag_1` and `flag_2`. When a decision for `flag_3` is made, these dependencies can be evaluated `statelessly` or `statefully`:
 
-_Stateful_ dependency evaluation works by checking whether `flag_1` and `flag_2` _were explicitly evaluated as `on` for a given user at some point before_ a decision is required for `flag_3`.
+- **Stateless** dependency evaluation works by checking whether `flag_1` and `flag_2` are `on` for a given user _at the moment that a decision for `flag_3` is required_. 
+- **Stateful** dependency evaluation works by checking whether `flag_1` and `flag_2` _were explicitly evaluated as `on` for a given user at some point before_ a decision is required for `flag_3`.
 
-This demo implements _stateless_ flag dependencies.
+This demo implements stateless flag dependencies.
 
 ## How to specify a dependency
 
