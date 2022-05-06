@@ -1,3 +1,5 @@
+import "https://unpkg.com/@optimizely/optimizely-sdk/dist/optimizely.browser.umd.min.js";
+
 /**
  * Returns an Optimizely client instance with an additional bound method: decideWithDependencies
  */
@@ -5,7 +7,6 @@ function getOptimizelyClient() {
 	var optimizelyClient = optimizelySdk.createInstance({
 		sdkKey: "LbmzK7viE2J2bP5ozmZR9"
 	});
-
 
 	optimizelyClient.decideWithDependencies = decideWithDependencies.bind(optimizelyClient);
 
@@ -54,3 +55,6 @@ function decideWithDependencies(userContext, flagKey, options) {
 
 	return decision;
 };
+
+export { getOptimizelyClient };
+

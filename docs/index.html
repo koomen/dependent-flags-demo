@@ -1,17 +1,19 @@
 <html>
 	<head>
-		<script src="https://unpkg.com/@optimizely/optimizely-sdk/dist/optimizely.browser.umd.min.js"></script>
-		<script src="optimizely_flag_dependencies.js"></script>
-		<script>
+		<script type="module">
+			import * as optimizely_flag_dependencies from "./optimizely_flag_dependencies.js";
 
-			const optimizelyClient = getOptimizelyClient();
+			// Instantiate an Optimizely client object
+			const optimizelyClient = optimizely_flag_dependencies.getOptimizelyClient();
 
+			/**
+			  * Handle a "Decide" button click
+				*/
 			function decideButtonClick() {
 				console.log("Decide button clicked");
-				optimizelyClient.onReady().then(async () => {
+				optimizelyClient.onReady().then(() => {
 					
 					// Create user context
-
 					var userId = "user123";
 					var attrs = {
 						in_audience_1: document.getElementById("in_audience_1").checked,
@@ -33,6 +35,8 @@
 			}
 
 			decideButtonClick();
+			document.getElementById("decide").onclick = decideButtonClick;
+
 
 		</script>
 		<style>
@@ -49,7 +53,7 @@
 			<label for="in_audience_2"> In Audience 2</label>
 		</div>
 		<div>
-			<button onclick="decideButtonClick()">Decide</button>
+			<button id="decide">Decide</button>
 		</div>
 		<div>
 			<code>flag_1</code> (targeted at Audience 1): <code><span id="flag_1"></span></code><br/>
