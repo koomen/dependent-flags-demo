@@ -3,14 +3,17 @@
 		<script type="module">
 			import * as optimizely_flag_dependencies from "./optimizely_flag_dependencies.js";
 
-			// Instantiate an Optimizely client object
-			const optimizelyClient = optimizely_flag_dependencies.getOptimizelyClient();
-
 			/**
 			  * Handle a "Decide" button click
 				*/
-			function decideButtonClick() {
+			function handleDecideButtonClick() {
 				console.log("Decide button clicked");
+			
+				// Instantiate an Optimizely client object
+				var optimizelyClient = optimizely_flag_dependencies.createInstance({
+					sdkKey: document.getElementById("sdkKey").value
+				});
+				
 				optimizelyClient.onReady().then(() => {
 					
 					// Create user context
@@ -23,19 +26,16 @@
 					console.log(`Created user context with userId=${userId} and attrs=${JSON.stringify(attrs)}`);
 
 
-					// Decide flags
-
+					// Decide flag_1, flag_2, and flag_3
 					["flag_1", "flag_2", "flag_3"].forEach(flag => {
 						let stateStr = optimizelyClient.decideWithDependencies(user, flag).enabled ? "ON" : "OFF";
 						document.getElementById(flag).innerHTML = stateStr;
 					})
-
-					console.log("Decisions made");
 				})
 			}
 
-			decideButtonClick();
-			document.getElementById("decide").onclick = decideButtonClick;
+			handleDecideButtonClick();
+			document.getElementById("decide").onclick = handleDecideButtonClick;
 
 
 		</script>
@@ -46,6 +46,10 @@
 		</style>
 	</head>
 	<body>
+		<div>
+			SDK Key: 
+			<input type="text" id="sdkKey" name="sdkKey" value="LbmzK7viE2J2bP5ozmZR9" style="width: 300px;"></input>
+		</div>
 		<div>
 			<input type="checkbox" id="in_audience_1" name="in_audience_1" />
 			<label for="in_audience_1"> In Audience 1</label><br/>
